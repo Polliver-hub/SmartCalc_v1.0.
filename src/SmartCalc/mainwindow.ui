@@ -419,7 +419,7 @@ color: rgb(255, 255, 255);</string>
      <string notr="true">background-color: rgb(33, 33, 33);</string>
     </property>
     <property name="text">
-     <string>sqrt</string>
+     <string>√</string>
     </property>
    </widget>
    <widget class="QPushButton" name="pushButton_asin">
@@ -551,54 +551,134 @@ color: rgb(255, 255, 255);</string>
      <string>x</string>
     </property>
    </widget>
-   <widget class="QDoubleSpinBox" name="doubleSpinBox">
+   <widget class="QDoubleSpinBox" name="doubleSpinBox_SetX">
     <property name="geometry">
      <rect>
       <x>460</x>
       <y>210</y>
-      <width>81</width>
+      <width>91</width>
       <height>22</height>
      </rect>
     </property>
-   </widget>
-   <widget class="QDoubleSpinBox" name="doubleSpinBox_2">
-    <property name="geometry">
-     <rect>
-      <x>460</x>
-      <y>240</y>
-      <width>81</width>
-      <height>22</height>
-     </rect>
+    <property name="font">
+     <font>
+      <kerning>true</kerning>
+     </font>
+    </property>
+    <property name="frame">
+     <bool>true</bool>
+    </property>
+    <property name="buttonSymbols">
+     <enum>QAbstractSpinBox::NoButtons</enum>
+    </property>
+    <property name="decimals">
+     <number>7</number>
+    </property>
+    <property name="minimum">
+     <double>-1000000.000000000000000</double>
+    </property>
+    <property name="maximum">
+     <double>1000000.000000000000000</double>
     </property>
    </widget>
-   <widget class="QDoubleSpinBox" name="doubleSpinBox_3">
+   <widget class="QDoubleSpinBox" name="doubleSpinBox_domian_max">
     <property name="geometry">
      <rect>
       <x>460</x>
       <y>260</y>
-      <width>81</width>
+      <width>91</width>
       <height>22</height>
      </rect>
     </property>
+    <property name="frame">
+     <bool>true</bool>
+    </property>
+    <property name="buttonSymbols">
+     <enum>QAbstractSpinBox::NoButtons</enum>
+    </property>
+    <property name="keyboardTracking">
+     <bool>true</bool>
+    </property>
+    <property name="decimals">
+     <number>7</number>
+    </property>
+    <property name="maximum">
+     <double>1000000.000000000000000</double>
+    </property>
+    <property name="value">
+     <double>20.000000000000000</double>
+    </property>
    </widget>
-   <widget class="QDoubleSpinBox" name="doubleSpinBox_4">
+   <widget class="QDoubleSpinBox" name="doubleSpinBox_domain_min">
     <property name="geometry">
      <rect>
       <x>460</x>
-      <y>290</y>
-      <width>81</width>
+      <y>240</y>
+      <width>91</width>
       <height>22</height>
      </rect>
     </property>
+    <property name="buttonSymbols">
+     <enum>QAbstractSpinBox::NoButtons</enum>
+    </property>
+    <property name="decimals">
+     <number>7</number>
+    </property>
+    <property name="minimum">
+     <double>-1000000.000000000000000</double>
+    </property>
+    <property name="maximum">
+     <double>0.000000000000000</double>
+    </property>
+    <property name="value">
+     <double>-20.000000000000000</double>
+    </property>
    </widget>
-   <widget class="QDoubleSpinBox" name="doubleSpinBox_5">
+   <widget class="QDoubleSpinBox" name="doubleSpinBox_range_max">
     <property name="geometry">
      <rect>
       <x>460</x>
       <y>310</y>
-      <width>81</width>
+      <width>91</width>
       <height>22</height>
      </rect>
+    </property>
+    <property name="buttonSymbols">
+     <enum>QAbstractSpinBox::NoButtons</enum>
+    </property>
+    <property name="decimals">
+     <number>7</number>
+    </property>
+    <property name="maximum">
+     <double>1000000.000000000000000</double>
+    </property>
+    <property name="value">
+     <double>20.000000000000000</double>
+    </property>
+   </widget>
+   <widget class="QDoubleSpinBox" name="doubleSpinBox_range_min">
+    <property name="geometry">
+     <rect>
+      <x>460</x>
+      <y>290</y>
+      <width>91</width>
+      <height>22</height>
+     </rect>
+    </property>
+    <property name="buttonSymbols">
+     <enum>QAbstractSpinBox::NoButtons</enum>
+    </property>
+    <property name="decimals">
+     <number>7</number>
+    </property>
+    <property name="minimum">
+     <double>-1000000.000000000000000</double>
+    </property>
+    <property name="maximum">
+     <double>0.000000000000000</double>
+    </property>
+    <property name="value">
+     <double>-20.000000000000000</double>
     </property>
    </widget>
    <widget class="QLabel" name="label_SetX">
