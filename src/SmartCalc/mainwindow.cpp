@@ -8,34 +8,31 @@ int butt_end = END;
 MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWindow) {
   ui->setupUi(this);
 
-  connect(ui->Button_0, SIGNAL(clicked()), this, SLOT(digits_numbers()));
-  connect(ui->Button_1, SIGNAL(clicked()), this, SLOT(digits_numbers()));
-  connect(ui->Button_2, SIGNAL(clicked()), this, SLOT(digits_numbers()));
-  connect(ui->Button_3, SIGNAL(clicked()), this, SLOT(digits_numbers()));
-  connect(ui->Button_4, SIGNAL(clicked()), this, SLOT(digits_numbers()));
-  connect(ui->Button_5, SIGNAL(clicked()), this, SLOT(digits_numbers()));
-  connect(ui->Button_6, SIGNAL(clicked()), this, SLOT(digits_numbers()));
-  connect(ui->Button_7, SIGNAL(clicked()), this, SLOT(digits_numbers()));
-  connect(ui->Button_8, SIGNAL(clicked()), this, SLOT(digits_numbers()));
-  connect(ui->Button_9, SIGNAL(clicked()), this, SLOT(digits_numbers()));
+  connect(ui->pushButton_0, SIGNAL(clicked()), this, SLOT(digits_numbers()));
+  connect(ui->pushButton_1, SIGNAL(clicked()), this, SLOT(digits_numbers()));
+  connect(ui->pushButton_2, SIGNAL(clicked()), this, SLOT(digits_numbers()));
+  connect(ui->pushButton_3, SIGNAL(clicked()), this, SLOT(digits_numbers()));
+  connect(ui->pushButton_4, SIGNAL(clicked()), this, SLOT(digits_numbers()));
+  connect(ui->pushButton_5, SIGNAL(clicked()), this, SLOT(digits_numbers()));
+  connect(ui->pushButton_6, SIGNAL(clicked()), this, SLOT(digits_numbers()));
+  connect(ui->pushButton_7, SIGNAL(clicked()), this, SLOT(digits_numbers()));
+  connect(ui->pushButton_8, SIGNAL(clicked()), this, SLOT(digits_numbers()));
+  connect(ui->pushButton_9, SIGNAL(clicked()), this, SLOT(digits_numbers()));
 
-  connect(ui->Button_plus, SIGNAL(clicked()), this, SLOT(digits_sign()));
-  connect(ui->Button_minus, SIGNAL(clicked()), this, SLOT(digits_sign()));
-  connect(ui->Button_separation, SIGNAL(clicked()), this, SLOT(digits_sign()));
-  connect(ui->Button_x, SIGNAL(clicked()), this, SLOT(digits_sign()));
+  connect(ui->pushButton_plus, SIGNAL(clicked()), this, SLOT(digits_sign()));
+  connect(ui->pushButton_minus, SIGNAL(clicked()), this, SLOT(digits_sign()));
+  connect(ui->pushButton_del, SIGNAL(clicked()), this, SLOT(digits_sign()));
+  connect(ui->pushButton_mul, SIGNAL(clicked()), this, SLOT(digits_sign()));
 
-  connect(ui->Button_e, SIGNAL(clicked()), this, SLOT(pi_e_clicked()));
-  connect(ui->Button_pi, SIGNAL(clicked()), this, SLOT(pi_e_clicked()));
-
-  connect(ui->Button_cos, SIGNAL(clicked()), this, SLOT(function_trig()));
-  connect(ui->Button_sin, SIGNAL(clicked()), this, SLOT(function_trig()));
-  connect(ui->Button_acos, SIGNAL(clicked()), this, SLOT(function_trig()));
-  connect(ui->Button_asin, SIGNAL(clicked()), this, SLOT(function_trig()));
-  connect(ui->Button_atan, SIGNAL(clicked()), this, SLOT(function_trig()));
-  connect(ui->Button_tan, SIGNAL(clicked()), this, SLOT(function_trig()));
-  connect(ui->Button_log, SIGNAL(clicked()), this, SLOT(function_trig()));
-  connect(ui->Button_sqrt, SIGNAL(clicked()), this, SLOT(function_trig()));
-  connect(ui->Button_ln, SIGNAL(clicked()), this, SLOT(function_trig()));
+  connect(ui->pushButton_cos, SIGNAL(clicked()), this, SLOT(function_trig()));
+  connect(ui->pushButton_sin, SIGNAL(clicked()), this, SLOT(function_trig()));
+  connect(ui->pushButton_acos, SIGNAL(clicked()), this, SLOT(function_trig()));
+  connect(ui->pushButton_asin, SIGNAL(clicked()), this, SLOT(function_trig()));
+  connect(ui->pushButton_atan, SIGNAL(clicked()), this, SLOT(function_trig()));
+  connect(ui->pushButton_tan, SIGNAL(clicked()), this, SLOT(function_trig()));
+  connect(ui->pushButton_log, SIGNAL(clicked()), this, SLOT(function_trig()));
+  connect(ui->pushButton_sqrt, SIGNAL(clicked()), this, SLOT(function_trig()));
+  connect(ui->pushButton_ln, SIGNAL(clicked()), this, SLOT(function_trig()));
 
 //  graph_form = new graph();
 }
@@ -44,75 +41,59 @@ MainWindow::~MainWindow() {
   delete ui;
 }
 
-void MainWindow::on_doubleSpinBox_arg_valueChanged(double arg1) { arg = arg1; }
+void MainWindow::on_doubleSpinBox_SetX_valueChanged(double arg1) { arg = arg1; }
 
-void MainWindow::on_Button_c_clicked() {
+void MainWindow::on_pushButton_C_clicked() {
   Validate(END);
-  ui->result_show->setPlainText("0");
+  ui->input_text->setPlainText("0");
 }
 
 void MainWindow::digits_numbers() {
   if (Validate(NUMBER)) {
     QPushButton *button = (QPushButton *)sender();
-    ui->label_input->setPlainText(first_num(button->text()));
+    ui->input_text->setPlainText(first_num(button->text()));
   }
-}
-
-void MainWindow::pi_e_clicked() {
-  QString new_label;
-  QPushButton *button = (QPushButton *)sender();
-  if (button->text() == "Pi")
-    new_label = "3.1415926";
-  else if (button->text() == "e")
-    new_label = "2.7182818";
-
-  if (butt_end == SIGN || butt_end == BOP || butt_end == OPR)
-    ui->result_show->setPlainText(ui->result_show->toPlainText() + new_label);
-  else
-    ui->result_show->setPlainText(new_label);
-  sign = false;
-  butt_end = NUMBER;
 }
 
 void MainWindow::digits_sign() {
   if (Validate(SIGN)) {
     QPushButton *button = (QPushButton *)sender();
-    if (ui->result_show->toPlainText() == "0" ||
-        ui->result_show->toPlainText() == "(") {
+    if (ui->input_text->toPlainText() == "0" ||
+        ui->input_text->toPlainText() == "(") {
       if (button->text() == "+" || button->text() == "-")
-        ui->result_show->setPlainText(button->text());
+        ui->input_text->setPlainText(button->text());
     } else {
-      ui->result_show->setPlainText(ui->result_show->toPlainText() +
+      ui->input_text->setPlainText(ui->input_text->toPlainText() +
           button->text());
     }
   }
 }
 
-void MainWindow::on_Button_xy_clicked() {
+//void MainWindow::on_Button_xy_clicked() {
+//  if (Validate(SIGN))
+//    ui->input_text->setPlainText(ui->input_text->toPlainText() + "^");
+//}
+
+void MainWindow::on_pushButton_mod_clicked() {
   if (Validate(SIGN))
-    ui->result_show->setPlainText(ui->result_show->toPlainText() + "^");
+    ui->input_text->setPlainText(ui->input_text->toPlainText() + " mod ");
 }
 
-void MainWindow::on_Button_mod_clicked() {
-  if (Validate(SIGN))
-    ui->result_show->setPlainText(ui->result_show->toPlainText() + " mod ");
-}
-
-void MainWindow::on_Button_point_clicked() {
+void MainWindow::on_pushButton_dot_clicked() {
   if (Validate(DOT))
-    ui->result_show->setPlainText(ui->result_show->toPlainText() + ".");
+    ui->input_text->setPlainText(ui->input_text->toPlainText() + ".");
 }
 
-void MainWindow::on_Button_bracketopening_clicked() {
-  if (Validate(BOP)) ui->result_show->setPlainText(first_num("("));
+void MainWindow::on_pushButton_open_bracket_clicked() {
+  if (Validate(BOP)) ui->input_text->setPlainText(first_num("("));
 }
 
-void MainWindow::on_Button_bracketclosing_clicked() {
-  if (Validate(BCL)) ui->result_show->setPlainText(first_num(")"));
+void MainWindow::on_pushButton_closed_bracket_clicked() {
+  if (Validate(BCL)) ui->input_text->setPlainText(first_num(")"));
 }
 
-void MainWindow::on_Button_args_clicked() {
-  if (Validate(BTX)) ui->result_show->setPlainText(first_num("x"));
+void MainWindow::on_pushButton_x_clicked() {
+  if (Validate(BTX)) ui->input_text->setPlainText(first_num("x"));
 }
 
 void MainWindow::function_trig() {
@@ -140,160 +121,161 @@ void MainWindow::function_trig() {
     else if (button->text() == "sqrt")
       new_label = "sqrt(";
 
-    ui->result_show->setPlainText(first_num(new_label));
+    ui->input_text->setPlainText(first_num(new_label));
   }
 }
 
-void MainWindow::on_Button_equally_clicked() {
-  char str_in1[STACK_DEPTH];
-  strcpy(str_in1, ui->result_show->toPlainText().toLocal8Bit().data());
+void MainWindow::on_pushButton_equil_clicked() {
+  char str_normal[STACK_MAX_SIZE];
+  char str_polish[STACK_MAX_SIZE];
+  strcpy(str_normal, ui->input_text->toPlainText().toLocal8Bit().data());
   if (sign)
-    on_Button_del_clicked(),
-        strcpy(str_in1, ui->result_show->toPlainText().toLocal8Bit().data());
-  double rez = 0.0;
-  dijkstra_algorithm(str_in1);
-  int is_error = 0;
-  QString history = ui->result_show->toPlainText();
-  bool checkBox = ui->checkBox->isChecked();
+    on_pushButton_C_clicked(),
+        strcpy(str_normal, ui->input_text->toPlainText().toLocal8Bit().data());
+//  double rez = 0.0;
+  convert_to_polish_record(str_normal, str_polish);
+//  int is_error = 0;
+  QString history = ui->input_text->toPlainText();
+  bool checkBox_graf = ui->checkBox_graf->isChecked();
   QString str_out = "0";
-//  if (checkBox) {
-//    is_error = operand(str_in1, &rez, 1);
+//  if (checkBox_graf) {
+//    is_error = operand(str_polish, &rez, 1);
 //    if (!is_error) {
 //      Window_Pos();
 //      double ranges[4] = {
-//          ui->doubleSpinBox_obl_x1->value(), ui->doubleSpinBox_obl_x2->value(),
-//          ui->doubleSpinBox_obl_y1->value(), ui->doubleSpinBox_obl_y2->value()};
+//          ui->doubleSpinBox_domain_min->value(), ui->doubleSpinBox_domain_max->value(),
+//          ui->doubleSpinBox_range_min->value(), ui->doubleSpinBox_range_max->value()};
 //      connect(this, SIGNAL(sendPrint(const char*,double*)), graph_form,
 //          SLOT(Print(const char*,double*)), Qt::DirectConnection);
 //      graph_form->show();
-//      emit sendPrint(str_in1, ranges);
+//      emit sendPrint(str_polish, ranges);
 //    }
 //    butt_end = END;
-//  } else {
-//    is_error = operand(str_in1, &rez, arg);
-//    str_out = QString::number(rez, 'f', 7);
-//    rez = QVariant{str_out}.toDouble();
-//    str_out = QVariant{rez}.toString();
-//    butt_end = EQL;
-//    sign = false;
-//  }
 
-  switch (is_error) {
-    case -1:
-      str_out = "стек переполнен";
-      break;
-    case -2:
-      str_out = "недостаточно операндов в стеке";
-      break;
-    case -3:
-      str_out = "неверное значение";
-      break;
-    case -4:
-      str_out = "нечисло";
-      break;
-    case -5:
-      str_out = "бесконечность";
-      break;
-  }
-  ui->result_show->setPlainText(str_out);
-  if (!checkBox) history += " = " + str_out;
-  ui->result_history->appendPlainText(history);
-}
-
-void MainWindow::on_Button_del_clicked() {
-  QString new_label = ui->result_show->toPlainText().mid(
-      ui->result_show->toPlainText().length(), 1);
-  int len = 1;
-  if (new_label == '+' || new_label == '-' || new_label == '*' ||
-      new_label == '/' || new_label == '^')
+    double rez = calculate_value(str_polish, arg);
+    str_out = QString::number(rez, 'f', 7);
+    rez = QVariant{str_out}.toDouble();
+    str_out = QVariant{rez}.toString();
+    butt_end = EQL;
     sign = false;
 
-  for (int i = 3; i < 6; i++) {
-    new_label = ui->result_show->toPlainText().mid(
-        ui->result_show->toPlainText().length() - i, i);
-    if (new_label == "ln(")
-      len = 3;
-    else if (new_label == "cos(" || new_label == "sin(" ||
-        new_label == "tan(" || new_label == "log(")
-      len = 4;
-    else if (new_label == "acos(" || new_label == "asin(" ||
-        new_label == "atan(" || new_label == " mod " ||
-        new_label == "sqrt(")
-      len = 5;
-  }
 
-  new_label = ui->result_show->toPlainText().mid(
-      ui->result_show->toPlainText().length() - 1, 1);
-  if (new_label >= '0' && new_label <= '9')
-    butt_end = NUMBER;
-  else if (new_label == '+' || new_label == '-' || new_label == '*' ||
-      new_label == '/' || new_label == '^' || new_label == ' ')
-    butt_end = SIGN, sign = true;
-  else if (new_label == '.')
-    butt_end = DOT;
-  else if (new_label == '(') {
-    new_label = ui->result_show->toPlainText().mid(
-        ui->result_show->toPlainText().length() - 2, 1);
-    if (new_label >= 'a' && new_label <= 'z')
-      butt_end = OPR;
-    else
-      butt_end = BOP;
-  } else if (new_label == ')')
-    butt_end = BCL;
-  else if (new_label == 'x')
-    butt_end = BTX;
-
-  new_label = ui->result_show->toPlainText().remove(
-      ui->result_show->toPlainText().length() - len, len);
-  if (new_label == "") new_label = "0", butt_end = END;
-  ui->result_show->setPlainText(new_label);
+//  switch (is_error) {
+//    case -1:
+//      str_out = "стек переполнен";
+//      break;
+//    case -2:
+//      str_out = "недостаточно операндов в стеке";
+//      break;
+//    case -3:
+//      str_out = "неверное значение";
+//      break;
+//    case -4:
+//      str_out = "нечисло";
+//      break;
+//    case -5:
+//      str_out = "бесконечность";
+//      break;
+//  }
+  ui->input_text->setPlainText(str_out);
+  if (!checkBox_graf) history += " = " + str_out;
+  ui->history_text->appendPlainText(history);
 }
 
-void MainWindow::on_result_show_textChanged() {
-  if (ui->result_show->toPlainText().length() > 255) on_Button_del_clicked();
-  if (!ui->result_show->toPlainText().contains('x')) {
+//void MainWindow::on_pushButton_del_clicked() {
+//  QString new_label = ui->input_text->toPlainText().mid(
+//      ui->input_text->toPlainText().length(), 1);
+//  int len = 1;
+//  if (new_label == '+' || new_label == '-' || new_label == '*' ||
+//      new_label == '/' || new_label == '^')
+//    sign = false;
+
+//  for (int i = 3; i < 6; i++) {
+//    new_label = ui->input_text->toPlainText().mid(
+//        ui->input_text->toPlainText().length() - i, i);
+//    if (new_label == "ln(")
+//      len = 3;
+//    else if (new_label == "cos(" || new_label == "sin(" ||
+//        new_label == "tan(" || new_label == "log(")
+//      len = 4;
+//    else if (new_label == "acos(" || new_label == "asin(" ||
+//        new_label == "atan(" || new_label == " mod " ||
+//        new_label == "sqrt(")
+//      len = 5;
+//  }
+
+//  new_label = ui->input_text->toPlainText().mid(
+//      ui->input_text->toPlainText().length() - 1, 1);
+//  if (new_label >= '0' && new_label <= '9')
+//    butt_end = NUMBER;
+//  else if (new_label == '+' || new_label == '-' || new_label == '*' ||
+//      new_label == '/' || new_label == '^' || new_label == ' ')
+//    butt_end = SIGN, sign = true;
+//  else if (new_label == '.')
+//    butt_end = DOT;
+//  else if (new_label == '(') {
+//    new_label = ui->input_text->toPlainText().mid(
+//        ui->input_text->toPlainText().length() - 2, 1);
+//    if (new_label >= 'a' && new_label <= 'z')
+//      butt_end = OPR;
+//    else
+//      butt_end = BOP;
+//  } else if (new_label == ')')
+//    butt_end = BCL;
+//  else if (new_label == 'x')
+//    butt_end = BTX;
+
+//  new_label = ui->input_text->toPlainText().remove(
+//      ui->input_text->toPlainText().length() - len, len);
+//  if (new_label == "") new_label = "0", butt_end = END;
+//  ui->input_text->setPlainText(new_label);
+//}
+
+void MainWindow::on_input_text_textChanged() {
+  if (ui->input_text->toPlainText().length() > 255) on_pushButton_C_clicked();
+  if (!ui->input_text->toPlainText().contains('x')) {
     arg = 1.0;
-    ui->label_arg->setEnabled(false);
-    ui->doubleSpinBox_arg->setEnabled(false);
-    if (ui->checkBox->isChecked()) {
-      on_checkBox_clicked(0);
-      ui->checkBox->setChecked(0);
+    ui->label_SetX->setEnabled(false);
+    ui->doubleSpinBox_SetX->setEnabled(false);
+    if (ui->checkBox_graf->isChecked()) {
+//      on_checkBox_graf_clicked(0);
+      ui->checkBox_graf->setChecked(0);
     }
   } else {
-    if (!ui->checkBox->isChecked()) {
-      arg = ui->doubleSpinBox_arg->value();
-      ui->label_arg->setEnabled(true);
-      ui->doubleSpinBox_arg->setEnabled(true);
+    if (!ui->checkBox_graf->isChecked()) {
+      arg = ui->doubleSpinBox_SetX->value();
+      ui->label_SetX->setEnabled(true);
+      ui->doubleSpinBox_SetX->setEnabled(true);
     }
   }
 }
 
-void MainWindow::on_checkBox_clicked(bool checked) {
-  if (checked) {
-    ui->label_arg->setEnabled(false);
-    ui->doubleSpinBox_arg->setEnabled(false);
-    ui->label_x->setEnabled(true);
-    ui->doubleSpinBox_obl_x1->setEnabled(true);
-    ui->doubleSpinBox_obl_x2->setEnabled(true);
-    ui->label_y->setEnabled(true);
-    ui->doubleSpinBox_obl_y1->setEnabled(true);
-    ui->doubleSpinBox_obl_y2->setEnabled(true);
-  } else {
-    if (!ui->result_show->toPlainText().contains('x')) {
-      ui->label_arg->setEnabled(false);
-      ui->doubleSpinBox_arg->setEnabled(false);
-    } else {
-      ui->label_arg->setEnabled(true);
-      ui->doubleSpinBox_arg->setEnabled(true);
-    }
-    ui->label_x->setEnabled(false);
-    ui->doubleSpinBox_obl_x1->setEnabled(false);
-    ui->doubleSpinBox_obl_x2->setEnabled(false);
-    ui->label_y->setEnabled(false);
-    ui->doubleSpinBox_obl_y1->setEnabled(false);
-    ui->doubleSpinBox_obl_y2->setEnabled(false);
-  }
-}
+//void MainWindow::on_checkBox_graf_clicked(bool checked) {
+//  if (checked) {
+//    ui->label_SetX->setEnabled(false);
+//    ui->doubleSpinBox_SetX->setEnabled(false);
+//    ui->label_x->setEnabled(true);
+//    ui->doubleSpinBox_domain_min->setEnabled(true);
+//    ui->doubleSpinBox_domain_max->setEnabled(true);
+//    ui->label_y->setEnabled(true);
+//    ui->doubleSpinBox_range_min->setEnabled(true);
+//    ui->doubleSpinBox_range_max->setEnabled(true);
+//  } else {
+//    if (!ui->input_text->toPlainText().contains('x')) {
+//      ui->label_SetX->setEnabled(false);
+//      ui->doubleSpinBox_SetX->setEnabled(false);
+//    } else {
+//      ui->label_SetX->setEnabled(true);
+//      ui->doubleSpinBox_SetX->setEnabled(true);
+//    }
+//    ui->label_x->setEnabled(false);
+//    ui->doubleSpinBox_domain_min->setEnabled(false);
+//    ui->doubleSpinBox_domain_max->setEnabled(false);
+//    ui->label_y->setEnabled(false);
+//    ui->doubleSpinBox_range_min->setEnabled(false);
+//    ui->doubleSpinBox_range_max->setEnabled(false);
+//  }
+//}
 
 void MainWindow::Window_Pos() {
   QScreen *screen = QGuiApplication::primaryScreen();
@@ -305,9 +287,9 @@ void MainWindow::Window_Pos() {
 }
 
 QString MainWindow::first_num(QString butt) {
-  return (ui->result_show->toPlainText() == "0")
+  return (ui->input_text->toPlainText() == "0")
          ? butt
-         : ui->result_show->toPlainText() + butt;
+         : ui->input_text->toPlainText() + butt;
 }
 
 void MainWindow::keyPressEvent(QKeyEvent *event) {
@@ -315,36 +297,36 @@ void MainWindow::keyPressEvent(QKeyEvent *event) {
   QString str = event->text();
   if (key >= Qt::Key_0 && key <= Qt::Key_9) {
     this->findChild<QPushButton *>("Button_" + str)->click();
-  } else if (key == Qt::Key_Backspace) {
-    ui->Button_del->click();
+//  } else if (key == Qt::Key_Backspace) {
+//    ui->pushButton_del->click();
   } else if (key == Qt::Key_Delete) {
-    ui->Button_c->click();
+    ui->pushButton_C->click();
   } else if (key == Qt::Key_Plus) {
-    ui->Button_plus->click();
+    ui->pushButton_plus->click();
   } else if (key == Qt::Key_Minus) {
-    ui->Button_minus->click();
+    ui->pushButton_minus->click();
   } else if (key == Qt::Key_Asterisk) {
-    ui->Button_x->click();
+    ui->pushButton_mul->click();
   } else if (key == Qt::Key_ParenLeft) {
-    ui->Button_bracketopening->click();
+    ui->pushButton_open_bracket->click();
   } else if (key == Qt::Key_ParenRight) {
-    ui->Button_bracketclosing->click();
+    ui->pushButton_closed_bracket->click();
   } else if (key == Qt::Key_Slash) {
-    ui->Button_separation->click();
+    ui->pushButton_del->click();
   } else if (key == Qt::Key_Period || key == Qt::Key_Comma) {
-    ui->Button_point->click();
+    ui->pushButton_dot->click();
   } else if (key == Qt::Key_V && event->modifiers() & Qt::ControlModifier) {
-    ui->result_show->setPlainText(QGuiApplication::clipboard()->text());
-    ui->Button_equally->click();
+    ui->input_text->setPlainText(QGuiApplication::clipboard()->text());
+    ui->pushButton_equil->click();
   } else if (key == Qt::Key_Enter || key == Qt::Key_Return) {
-    ui->Button_equally->click();
+    ui->pushButton_equil->click();
   } else if (key == Qt::Key_Escape) {
   }
 }
 
 bool MainWindow::Validate(int clicked_button) {
   bool rez = false;
-  if (butt_end == END) ui->result_show->setPlainText("0");
+  if (butt_end == END) ui->input_text->setPlainText("0");
   switch (clicked_button) {
     case END:
       rez = true;
@@ -394,22 +376,22 @@ bool MainWindow::Validate(int clicked_button) {
   return rez;
 }
 
-void MainWindow::on_doubleSpinBox_obl_x1_valueChanged(double arg1) {
-  if (arg1 >= ui->doubleSpinBox_obl_x2->value())
-    ui->doubleSpinBox_obl_x1->setValue(ui->doubleSpinBox_obl_x2->value() - 1);
+void MainWindow::on_doubleSpinBox_domain_min_valueChanged(double arg1) {
+  if (arg1 >= ui->doubleSpinBox_domain_max->value())
+    ui->doubleSpinBox_domain_min->setValue(ui->doubleSpinBox_domain_max->value() - 1);
 }
 
-void MainWindow::on_doubleSpinBox_obl_x2_valueChanged(double arg1) {
-  if (arg1 <= ui->doubleSpinBox_obl_x1->value())
-    ui->doubleSpinBox_obl_x2->setValue(ui->doubleSpinBox_obl_x1->value() + 1);
+void MainWindow::on_doubleSpinBox_domain_max_valueChanged(double arg1) {
+  if (arg1 <= ui->doubleSpinBox_domain_min->value())
+    ui->doubleSpinBox_domain_max->setValue(ui->doubleSpinBox_domain_min->value() + 1);
 }
 
-void MainWindow::on_doubleSpinBox_obl_y1_valueChanged(double arg1) {
-  if (arg1 >= ui->doubleSpinBox_obl_y2->value())
-    ui->doubleSpinBox_obl_y1->setValue(ui->doubleSpinBox_obl_y2->value() - 1);
+void MainWindow::on_doubleSpinBox_range_min_valueChanged(double arg1) {
+  if (arg1 >= ui->doubleSpinBox_range_max->value())
+    ui->doubleSpinBox_range_min->setValue(ui->doubleSpinBox_range_max->value() - 1);
 }
 
-void MainWindow::on_doubleSpinBox_obl_y2_valueChanged(double arg1) {
-  if (arg1 <= ui->doubleSpinBox_obl_y1->value())
-    ui->doubleSpinBox_obl_y2->setValue(ui->doubleSpinBox_obl_y1->value() + 1);
+void MainWindow::on_doubleSpinBox_range_max_valueChanged(double arg1) {
+  if (arg1 <= ui->doubleSpinBox_range_min->value())
+    ui->doubleSpinBox_range_max->setValue(ui->doubleSpinBox_range_min->value() + 1);
 }

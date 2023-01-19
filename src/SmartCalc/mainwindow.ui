@@ -17,45 +17,6 @@
    <string notr="true">background-color: rgb(0, 0, 0);</string>
   </property>
   <widget class="QWidget" name="centralwidget">
-   <widget class="QLabel" name="label_input">
-    <property name="geometry">
-     <rect>
-      <x>10</x>
-      <y>20</y>
-      <width>361</width>
-      <height>41</height>
-     </rect>
-    </property>
-    <property name="layoutDirection">
-     <enum>Qt::LeftToRight</enum>
-    </property>
-    <property name="styleSheet">
-     <string notr="true">qproperty-alignment: 'AlignVCenter | AlignRight';
-background-color: black;</string>
-    </property>
-    <property name="text">
-     <string>0</string>
-    </property>
-    <property name="alignment">
-     <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-    </property>
-   </widget>
-   <widget class="QLabel" name="label_history">
-    <property name="geometry">
-     <rect>
-      <x>390</x>
-      <y>20</y>
-      <width>201</width>
-      <height>151</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>History</string>
-    </property>
-    <property name="alignment">
-     <set>Qt::AlignRight|Qt::AlignTop|Qt::AlignTrailing</set>
-    </property>
-   </widget>
    <widget class="QPushButton" name="pushButton_C">
     <property name="geometry">
      <rect>
@@ -120,7 +81,7 @@ color: rgb(0, 0, 0);</string>
      <string notr="true">background-color: rgb(230, 169, 82);</string>
     </property>
     <property name="text">
-     <string>÷</string>
+     <string>/</string>
     </property>
    </widget>
    <widget class="QPushButton" name="pushButton_8">
@@ -581,7 +542,7 @@ color: rgb(255, 255, 255);</string>
      <double>1000000.000000000000000</double>
     </property>
    </widget>
-   <widget class="QDoubleSpinBox" name="doubleSpinBox_domian_max">
+   <widget class="QDoubleSpinBox" name="doubleSpinBox_domain_max">
     <property name="geometry">
      <rect>
       <x>460</x>
@@ -731,6 +692,32 @@ color: rgb(255, 255, 255);</string>
     </property>
     <property name="text">
      <string>create graphic</string>
+    </property>
+   </widget>
+   <widget class="QPlainTextEdit" name="input_text">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>10</y>
+      <width>361</width>
+      <height>61</height>
+     </rect>
+    </property>
+    <property name="layoutDirection">
+     <enum>Qt::LeftToRight</enum>
+    </property>
+    <property name="plainText">
+     <string>0</string>
+    </property>
+   </widget>
+   <widget class="QPlainTextEdit" name="history_text">
+    <property name="geometry">
+     <rect>
+      <x>390</x>
+      <y>10</y>
+      <width>211</width>
+      <height>181</height>
+     </rect>
     </property>
    </widget>
   </widget>

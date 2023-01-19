@@ -1,10 +1,12 @@
 #ifndef SRC_POLISH_H_
 #define SRC_POLISH_H_
-#define MAX_INFIX_LENGTH 100
+#define STACK_MAX_SIZE 300
+#define MAX_INFIX_LENGTH 300
 
 #ifdef __cplusplus
 extern "C" {
 #endif
+#include <string.h>
 
 // struct polish_element {
 //     double value;

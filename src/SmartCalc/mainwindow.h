@@ -40,29 +40,28 @@ class MainWindow : public QMainWindow {
  private slots:
   void digits_numbers();
   void digits_sign();
-  void pi_e_clicked();
-  void on_Button_c_clicked();
-  void on_Button_del_clicked();
-  void on_Button_point_clicked();
-  void on_Button_args_clicked();
-  void on_Button_bracketopening_clicked();
-  void on_Button_bracketclosing_clicked();
+  void on_pushButton_C_clicked();
+//  void on_pushButton_del_clicked();
+  void on_pushButton_dot_clicked();
+  void on_pushButton_x_clicked();
+  void on_pushButton_open_bracket_clicked();
+  void on_pushButton_closed_bracket_clicked();
 
-  void on_doubleSpinBox_arg_valueChanged(double arg1);
-  void on_result_show_textChanged();
-  void on_checkBox_clicked(bool checked);
+  void on_doubleSpinBox_SetX_valueChanged(double arg1);
+  void on_input_text_textChanged();
+//  void on_checkBox_graf_clicked(bool checked);
   void Window_Pos();
 
   QString first_num(QString butt);
   bool Validate(int clicked_button);
-  void on_Button_xy_clicked();
-  void on_Button_mod_clicked();
+//  void on_Button_xy_clicked();
+  void on_pushButton_mod_clicked();
   void function_trig();
-  void on_Button_equally_clicked();
-  void on_doubleSpinBox_obl_x1_valueChanged(double arg1);
-  void on_doubleSpinBox_obl_x2_valueChanged(double arg1);
-  void on_doubleSpinBox_obl_y1_valueChanged(double arg1);
-  void on_doubleSpinBox_obl_y2_valueChanged(double arg1);
+  void on_pushButton_equil_clicked();
+  void on_doubleSpinBox_domain_min_valueChanged(double arg1);
+  void on_doubleSpinBox_domain_max_valueChanged(double arg1);
+  void on_doubleSpinBox_range_min_valueChanged(double arg1);
+  void on_doubleSpinBox_range_max_valueChanged(double arg1);
 
  protected:
   virtual void keyPressEvent(QKeyEvent *event);
