@@ -79,7 +79,7 @@ void convert_to_polish_record(char* infix_record, char* polish_record) {
 }
 
 int is_operator(char c) {
-    char *operators = "+-*/()^";
+    char *operators = "+-m*/()^";
     return strchr(operators, c) ? 1 : 0;
 }
 
@@ -87,16 +87,21 @@ char get_op_name(char *lexeme) {
     char res = '\0';
     if (strcmp(lexeme, "+") == 0) res = '+';
     if (strcmp(lexeme, "-") == 0) res = '-';
+    if (strcmp(lexeme, "m") == 0) res = 'm';
     if (strcmp(lexeme, "*") == 0) res = '*';
     if (strcmp(lexeme, "/") == 0) res = '/';
     if (strcmp(lexeme, "(") == 0) res = '(';
     if (strcmp(lexeme, ")") == 0) res = ')';
     if (strcmp(lexeme, "sin") == 0) res = 's';
+    if (strcmp(lexeme, "asin") == 0) res = 'S';
     if (strcmp(lexeme, "cos") == 0) res = 'c';
+    if (strcmp(lexeme, "acos") == 0) res = 'C';
     if (strcmp(lexeme, "tan") == 0) res = 't';
+    if (strcmp(lexeme, "atan") == 0) res = 'T';
     if (strcmp(lexeme, "ctg") == 0) res = 'g';
     if (strcmp(lexeme, "sqrt") == 0) res = 'q';
     if (strcmp(lexeme, "ln") == 0) res = 'l';
+    if (strcmp(lexeme, "log") == 0) res = 'L';
     if (strcmp(lexeme, "^") == 0) res = '^';
     return res;
 }
@@ -105,9 +110,10 @@ int get_op_priority(char op) {
     int priority = 0;
     if (op == '^') priority = 10;
     if (op == '*' || op == '/') priority = 5;
+    if (op == 'm') priority = 4;
     if (op == '+' || op == '-') priority = 2;
-    if (op == 's' || op == 'c' || op == 't' || op == 'g'
-        || op == 'q' || op == 'l') priority = 6;
+    if (op == 's' || op == 'S' || op == 'c' || op == 'C' || op == 't' || op == 'T' || op == 'g'
+        || op == 'q' || op == 'l' || op == 'L') priority = 6;
     return priority;
 }
 
@@ -144,6 +150,23 @@ double calculate_value(char *polish_record, double x) {
                     nums = push(nums, 'd');
                     nums->value = a - b;
                     break;
+                case 'm':
+                    b = nums->value;
+                    nums = pop(nums);
+                    a = nums->value;
+                    nums = pop(nums);
+                    nums = push(nums, 'd');
+                    nums->value = fmod(a, b);
+                    break;
+//                    if (stack[scount] != 0 && stack[scount - 1] != 0)
+//                      stack[scount - 1] = fmod(stack[scount - 1], stack[scount]);
+//                    else if (stack[scount] == 0 && stack[scount - 1] == 0)
+//                      error = ENAN;
+//                    else if (stack[scount] == 0)
+//                      error = EINF;
+//                    else
+//                      stack[scount - 1] = 0;
+//                    break;
                 case '*':
                     a = nums->value;
                     nums = pop(nums);
@@ -174,11 +197,23 @@ double calculate_value(char *polish_record, double x) {
                     nums = push(nums, 'd');
                     nums->value = sin(a);
                     break;
+                case 'S':
+                    a = nums->value;
+                    nums = pop(nums);
+                    nums = push(nums, 'd');
+                    nums->value = asin(a);
+                    break;
                 case 'c':
                     a = nums->value;
                     nums = pop(nums);
                     nums = push(nums, 'd');
                     nums->value = cos(a);
+                    break;
+                case 'C':
+                    a = nums->value;
+                    nums = pop(nums);
+                    nums = push(nums, 'd');
+                    nums->value = acos(a);
                     break;
                 case 't':
                     a = nums->value;
@@ -186,19 +221,31 @@ double calculate_value(char *polish_record, double x) {
                     nums = push(nums, 'd');
                     nums->value = tan(a);
                     break;
+                case 'T':
+                    a = nums->value;
+                    nums = pop(nums);
+                    nums = push(nums, 'd');
+                    nums->value = atan(a);
+                    break;
                 case 'g':
                     a = nums->value;
                     nums = pop(nums);
                     nums = push(nums, 'd');
                     nums->value = 1/tan(a);
                     break;
-                case 'q':
+                case 'l':
                     a = nums->value;
                     nums = pop(nums);
                     nums = push(nums, 'd');
                     nums->value = log(a);
                     break;
-                case 'l':
+                case 'L':
+                    a = nums->value;
+                    nums = pop(nums);
+                    nums = push(nums, 'd');
+                    nums->value = log10(a);
+                    break;
+                case 'q':
                     a = nums->value;
                     nums = pop(nums);
                     nums = push(nums, 'd');

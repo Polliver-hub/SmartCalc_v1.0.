@@ -41,7 +41,6 @@ class MainWindow : public QMainWindow {
   void digits_numbers();
   void digits_sign();
   void on_pushButton_C_clicked();
-//  void on_pushButton_del_clicked();
   void on_pushButton_dot_clicked();
   void on_pushButton_x_clicked();
   void on_pushButton_open_bracket_clicked();
@@ -54,7 +53,7 @@ class MainWindow : public QMainWindow {
 
   QString first_num(QString butt);
   bool Validate(int clicked_button);
-//  void on_Button_xy_clicked();
+  void on_pushButton_degree_clicked();
   void on_pushButton_mod_clicked();
   void function_trig();
   void on_pushButton_equil_clicked();

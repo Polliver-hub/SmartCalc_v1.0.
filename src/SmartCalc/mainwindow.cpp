@@ -69,14 +69,14 @@ void MainWindow::digits_sign() {
   }
 }
 
-//void MainWindow::on_Button_xy_clicked() {
-//  if (Validate(SIGN))
-//    ui->input_text->setPlainText(ui->input_text->toPlainText() + "^");
-//}
+void MainWindow::on_pushButton_degree_clicked() {
+  if (Validate(SIGN))
+    ui->input_text->setPlainText(ui->input_text->toPlainText() + "^");
+}
 
 void MainWindow::on_pushButton_mod_clicked() {
   if (Validate(SIGN))
-    ui->input_text->setPlainText(ui->input_text->toPlainText() + " mod ");
+    ui->input_text->setPlainText(ui->input_text->toPlainText() + "m");
 }
 
 void MainWindow::on_pushButton_dot_clicked() {
