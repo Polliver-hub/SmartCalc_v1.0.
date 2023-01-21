@@ -134,7 +134,7 @@ void MainWindow::on_pushButton_equil_clicked() {
         strcpy(str_normal, ui->input_text->toPlainText().toLocal8Bit().data());
 //  double rez = 0.0;
   convert_to_polish_record(str_normal, str_polish);
-//  int is_error = 0;
+  int is_error = 0;
   QString history = ui->input_text->toPlainText();
   bool checkBox_graf = ui->checkBox_graf->isChecked();
   QString str_out = "0";
@@ -152,31 +152,29 @@ void MainWindow::on_pushButton_equil_clicked() {
 //    }
 //    butt_end = END;
 
-    double rez = calculate_value(str_polish, arg);
-    str_out = QString::number(rez, 'f', 7);
-    rez = QVariant{str_out}.toDouble();
-    str_out = QVariant{rez}.toString();
-    butt_end = EQL;
-    sign = false;
-
-
-//  switch (is_error) {
-//    case -1:
-//      str_out = "стек переполнен";
-//      break;
-//    case -2:
-//      str_out = "недостаточно операндов в стеке";
-//      break;
-//    case -3:
-//      str_out = "неверное значение";
-//      break;
-//    case -4:
-//      str_out = "нечисло";
-//      break;
-//    case -5:
-//      str_out = "бесконечность";
-//      break;
-//  }
+  double rez = calculate_value(str_polish, arg, &is_error);
+  str_out = QString::number(rez, 'f', 7);
+  rez = QVariant{str_out}.toDouble();
+  str_out = QVariant{rez}.toString();
+  butt_end = EQL;
+  sign = false;
+  switch (is_error) {
+    case -1:
+      str_out = "стек переполнен";
+      break;
+    case -2:
+      str_out = "недостаточно операндов в стеке";
+      break;
+    case -3:
+      str_out = "неверное значение";
+      break;
+    case -4:
+      str_out = "нечисло";
+      break;
+    case -5:
+      str_out = "бесконечность";
+      break;
+  }
   ui->input_text->setPlainText(str_out);
   if (!checkBox_graf) history += " = " + str_out;
   ui->history_text->appendPlainText(history);

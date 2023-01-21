@@ -22,7 +22,8 @@ void convert_to_polish_record(char* infix_record, char* polish_record) {
             }
             prev = 1;
         } else if (*ptr == 'x' || is_operator(*ptr)) {
-            str[len] = ' '; str[len + 1] = *ptr; str[len + 2] = '\0'; prev = 2;
+            str[len] = ' '; str[len + 1] = *ptr; str[len + 2] = '\0';
+            prev = 2;
         } else if (*ptr != ' ') {
             if (prev == 3 || prev == 0) {
                 str[len] = *ptr; str[len + 1] = '\0';
@@ -39,6 +40,9 @@ void convert_to_polish_record(char* infix_record, char* polish_record) {
             strcat(output_queue, lexeme);
             strcat(output_queue, " ");
         } else if (strcmp(lexeme, "x") == 0) {
+            strcat(output_queue, lexeme);
+            strcat(output_queue, " ");
+        } else if (strcmp(lexeme, "0") == 0) {
             strcat(output_queue, lexeme);
             strcat(output_queue, " ");
         } else {
@@ -117,12 +121,16 @@ int get_op_priority(char op) {
     return priority;
 }
 
-double calculate_value(char *polish_record, double x) {
+double calculate_value(char *polish_record, double x, int *error) {
     struct stack *nums = NULL;
     char polish_record_copy[MAX_INFIX_LENGTH];
     strcpy(polish_record_copy, polish_record);
     char *lexeme = strtok(polish_record_copy, " ");
-    while (lexeme) {
+//    int scount = 0;
+    while (lexeme && *error == 0) {
+//        if ((strchr("+*/m^", *lexeme) != NULL && scount < 2) ||
+//            (strchr("-asScCtTqLl", *lexeme) != NULL && scount < 1)) {
+//          *error = SUF;
         double num = atof(lexeme);
         if (num) {
             nums = push(nums, 'd');
@@ -130,6 +138,9 @@ double calculate_value(char *polish_record, double x) {
         } else if (strcmp(lexeme, "x") == 0) {
             nums = push(nums, 'd');
             nums->value = x;
+        } else if (strcmp(lexeme, "0") == 0) {
+            nums = push(nums, 'd');
+            nums->value = 0;
         } else {
             char op = *lexeme;
             double a, b;
