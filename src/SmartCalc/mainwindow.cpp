@@ -153,7 +153,7 @@ void MainWindow::on_pushButton_equil_clicked() {
 //    butt_end = END;
 
   double rez = calculate_value(str_polish, arg, &is_error);
-  str_out = QString::number(rez, 'f', 7);
+  str_out = QString::number(rez, 'g', 15);
   rez = QVariant{str_out}.toDouble();
   str_out = QVariant{rez}.toString();
   butt_end = EQL;

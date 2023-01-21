@@ -123,148 +123,145 @@ int get_op_priority(char op) {
 
 double calculate_value(char *polish_record, double x, int *error) {
     struct stack *nums = NULL;
+    int scount = 0;
     char polish_record_copy[MAX_INFIX_LENGTH];
     strcpy(polish_record_copy, polish_record);
     char *lexeme = strtok(polish_record_copy, " ");
-//    int scount = 0;
     while (lexeme && *error == 0) {
-//        if ((strchr("+*/m^", *lexeme) != NULL && scount < 2) ||
-//            (strchr("-asScCtTqLl", *lexeme) != NULL && scount < 1)) {
-//          *error = SUF;
-        double num = atof(lexeme);
-        if (num) {
-            nums = push(nums, 'd');
-            nums->value = num;
-        } else if (strcmp(lexeme, "x") == 0) {
-            nums = push(nums, 'd');
-            nums->value = x;
-        } else if (strcmp(lexeme, "0") == 0) {
-            nums = push(nums, 'd');
-            nums->value = 0;
+        if ((strchr("-+*/m^", *lexeme) != NULL && scount < 2) ||
+            (strchr("sScCtTqLl", *lexeme) != NULL && scount < 1)) {
+          *error = SUF;
         } else {
-            char op = *lexeme;
-            double a, b;
-            switch (op) {
-                case '+':
-                    a = nums->value;
-                    nums = pop(nums);
-                    b = nums->value;
-                    nums = pop(nums);
-                    nums = push(nums, 'd');
-                    nums->value = a + b;
-                    break;
-                case '-':
-                    b = nums->value;
-                    nums = pop(nums);
-                    a = nums ? nums->value : 0;
-                    nums = pop(nums);
-                    nums = push(nums, 'd');
-                    nums->value = a - b;
-                    break;
-                case 'm':
-                    b = nums->value;
-                    nums = pop(nums);
-                    a = nums->value;
-                    nums = pop(nums);
-                    nums = push(nums, 'd');
-                    nums->value = fmod(a, b);
-                    break;
-//                    if (stack[scount] != 0 && stack[scount - 1] != 0)
-//                      stack[scount - 1] = fmod(stack[scount - 1], stack[scount]);
-//                    else if (stack[scount] == 0 && stack[scount - 1] == 0)
-//                      error = ENAN;
-//                    else if (stack[scount] == 0)
-//                      error = EINF;
-//                    else
-//                      stack[scount - 1] = 0;
-//                    break;
-                case '*':
-                    a = nums->value;
-                    nums = pop(nums);
-                    b = nums->value;
-                    nums = pop(nums);
-                    nums = push(nums, 'd');
-                    nums->value = a * b;
-                    break;
-                case '/':
-                    b = nums->value;
-                    nums = pop(nums);
-                    a = nums->value;
-                    nums = pop(nums);
-                    nums = push(nums, 'd');
-                    nums->value = a / b;
-                    break;
-                case '^':
-                    b = nums->value;
-                    nums = pop(nums);
-                    a = nums->value;
-                    nums = pop(nums);
-                    nums = push(nums, 'd');
-                    nums->value = pow(a, b);
-                    break;
-                case 's':
-                    a = nums->value;
-                    nums = pop(nums);
-                    nums = push(nums, 'd');
-                    nums->value = sin(a);
-                    break;
-                case 'S':
-                    a = nums->value;
-                    nums = pop(nums);
-                    nums = push(nums, 'd');
-                    nums->value = asin(a);
-                    break;
-                case 'c':
-                    a = nums->value;
-                    nums = pop(nums);
-                    nums = push(nums, 'd');
-                    nums->value = cos(a);
-                    break;
-                case 'C':
-                    a = nums->value;
-                    nums = pop(nums);
-                    nums = push(nums, 'd');
-                    nums->value = acos(a);
-                    break;
-                case 't':
-                    a = nums->value;
-                    nums = pop(nums);
-                    nums = push(nums, 'd');
-                    nums->value = tan(a);
-                    break;
-                case 'T':
-                    a = nums->value;
-                    nums = pop(nums);
-                    nums = push(nums, 'd');
-                    nums->value = atan(a);
-                    break;
-                case 'g':
-                    a = nums->value;
-                    nums = pop(nums);
-                    nums = push(nums, 'd');
-                    nums->value = 1/tan(a);
-                    break;
-                case 'l':
-                    a = nums->value;
-                    nums = pop(nums);
-                    nums = push(nums, 'd');
-                    nums->value = log(a);
-                    break;
-                case 'L':
-                    a = nums->value;
-                    nums = pop(nums);
-                    nums = push(nums, 'd');
-                    nums->value = log10(a);
-                    break;
-                case 'q':
-                    a = nums->value;
-                    nums = pop(nums);
-                    nums = push(nums, 'd');
-                    nums->value = sqrt(a);
-                    break;
+            double num = atof(lexeme);
+            if (num) {
+                nums = push(nums, 'd');
+                nums->value = num;
+            } else if (strcmp(lexeme, "x") == 0) {
+                nums = push(nums, 'd');
+                nums->value = x;
+            } else if (strcmp(lexeme, "0") == 0) {
+                nums = push(nums, 'd');
+                nums->value = 0;
+            } else {
+                char op = *lexeme;
+                double a, b;
+                switch (op) {
+                    case '+':
+                        a = nums->value;
+                        nums = pop(nums);
+                        b = nums->value;
+                        nums = pop(nums);
+                        nums = push(nums, 'd');
+                        nums->value = a + b;
+                        break;
+                    case '-':
+                        b = nums->value;
+                        nums = pop(nums);
+                        a = nums ? nums->value : 0;
+                        nums = pop(nums);
+                        nums = push(nums, 'd');
+                        nums->value = a - b;
+                        break;
+                    case 'm':
+                        b = nums->value;
+                        nums = pop(nums);
+                        a = nums->value;
+                        nums = pop(nums);
+                        nums = push(nums, 'd');
+                        nums->value = fmod(a, b);
+                        break;
+                    case '*':
+                        a = nums->value;
+                        nums = pop(nums);
+                        b = nums->value;
+                        nums = pop(nums);
+                        nums = push(nums, 'd');
+                        nums->value = a * b;
+                        break;
+                    case '/':
+                        b = nums->value;
+                        nums = pop(nums);
+                        a = nums->value;
+                        nums = pop(nums);
+                        nums = push(nums, 'd');
+                        nums->value = a / b;
+                        break;
+                    case '^':
+                        b = nums->value;
+                        nums = pop(nums);
+                        a = nums->value;
+                        nums = pop(nums);
+                        nums = push(nums, 'd');
+                        nums->value = pow(a, b);
+                        break;
+                    case 's':
+                        a = nums->value;
+                        nums = pop(nums);
+                        nums = push(nums, 'd');
+                        nums->value = sin(a);
+                        break;
+                    case 'S':
+                        a = nums->value;
+                        nums = pop(nums);
+                        nums = push(nums, 'd');
+                        nums->value = asin(a);
+                        break;
+                    case 'c':
+                        a = nums->value;
+                        nums = pop(nums);
+                        nums = push(nums, 'd');
+                        nums->value = cos(a);
+                        break;
+                    case 'C':
+                        a = nums->value;
+                        nums = pop(nums);
+                        nums = push(nums, 'd');
+                        nums->value = acos(a);
+                        break;
+                    case 't':
+                        a = nums->value;
+                        nums = pop(nums);
+                        nums = push(nums, 'd');
+                        nums->value = tan(a);
+                        break;
+                    case 'T':
+                        a = nums->value;
+                        nums = pop(nums);
+                        nums = push(nums, 'd');
+                        nums->value = atan(a);
+                        break;
+                    case 'g':
+                        a = nums->value;
+                        nums = pop(nums);
+                        nums = push(nums, 'd');
+                        nums->value = 1/tan(a);
+                        break;
+                    case 'l':
+                        a = nums->value;
+                        nums = pop(nums);
+                        nums = push(nums, 'd');
+                        nums->value = log(a);
+                        break;
+                    case 'L':
+                        a = nums->value;
+                        nums = pop(nums);
+                        nums = push(nums, 'd');
+                        nums->value = log10(a);
+                        break;
+                    case 'q':
+                        a = nums->value;
+                        nums = pop(nums);
+                        nums = push(nums, 'd');
+                        nums->value = sqrt(a);
+                        break;
+//                    default:
+//                        scount++;
+//                        break;
+                }
             }
+            lexeme = strtok(NULL, " ");
         }
-        lexeme = strtok(NULL, " ");
+        scount++;
     }
     double y = nums ? nums->value : 0;
     destroy_stack(nums);
