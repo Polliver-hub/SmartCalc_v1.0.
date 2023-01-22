@@ -34,7 +34,7 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWi
   connect(ui->pushButton_sqrt, SIGNAL(clicked()), this, SLOT(function_trig()));
   connect(ui->pushButton_ln, SIGNAL(clicked()), this, SLOT(function_trig()));
 
-//  graph_form = new graph();
+  graph_form = new graph();
 }
 
 MainWindow::~MainWindow() {
@@ -128,36 +128,36 @@ void MainWindow::function_trig() {
 void MainWindow::on_pushButton_equil_clicked() {
   char str_normal[STACK_MAX_SIZE];
   char str_polish[STACK_MAX_SIZE];
+  int is_error = 0;
   strcpy(str_normal, ui->input_text->toPlainText().toLocal8Bit().data());
   if (sign)
     on_pushButton_C_clicked(),
         strcpy(str_normal, ui->input_text->toPlainText().toLocal8Bit().data());
-//  double rez = 0.0;
   convert_to_polish_record(str_normal, str_polish);
-  int is_error = 0;
   QString history = ui->input_text->toPlainText();
   bool checkBox_graf = ui->checkBox_graf->isChecked();
   QString str_out = "0";
-//  if (checkBox_graf) {
-//    is_error = operand(str_polish, &rez, 1);
-//    if (!is_error) {
-//      Window_Pos();
-//      double ranges[4] = {
-//          ui->doubleSpinBox_domain_min->value(), ui->doubleSpinBox_domain_max->value(),
-//          ui->doubleSpinBox_range_min->value(), ui->doubleSpinBox_range_max->value()};
-//      connect(this, SIGNAL(sendPrint(const char*,double*)), graph_form,
-//          SLOT(Print(const char*,double*)), Qt::DirectConnection);
-//      graph_form->show();
-//      emit sendPrint(str_polish, ranges);
-//    }
-//    butt_end = END;
-
-  double rez = calculate_value(str_polish, arg, &is_error);
-  str_out = QString::number(rez, 'g', 15);
-  rez = QVariant{str_out}.toDouble();
-  str_out = QVariant{rez}.toString();
-  butt_end = EQL;
-  sign = false;
+  if (checkBox_graf) {
+    calculate_value(str_polish, 1, &is_error);
+    if (!is_error) {
+      Window_Pos();
+      double ranges[4] = {
+          ui->doubleSpinBox_domain_min->value(), ui->doubleSpinBox_domain_max->value(),
+          ui->doubleSpinBox_range_min->value(), ui->doubleSpinBox_range_max->value()};
+      connect(this, SIGNAL(sendPrint(const char*,double*)), graph_form,
+          SLOT(Print(const char*,double*)), Qt::DirectConnection);
+      graph_form->show();
+      emit sendPrint(str_polish, ranges);
+    }
+    butt_end = END;
+  } else {
+      double rez = calculate_value(str_polish, arg, &is_error);
+      str_out = QString::number(rez, 'g', 15);
+      rez = QVariant{str_out}.toDouble();
+      str_out = QVariant{rez}.toString();
+      butt_end = EQL;
+      sign = false;
+  }
   switch (is_error) {
     case -1:
       str_out = "стек переполнен";
@@ -169,7 +169,7 @@ void MainWindow::on_pushButton_equil_clicked() {
       str_out = "неверное значение";
       break;
     case -4:
-      str_out = "нечисло";
+      str_out = "нет закрывающей скобки";
       break;
     case -5:
       str_out = "бесконечность";
@@ -180,55 +180,6 @@ void MainWindow::on_pushButton_equil_clicked() {
   ui->history_text->appendPlainText(history);
 }
 
-//void MainWindow::on_pushButton_del_clicked() {
-//  QString new_label = ui->input_text->toPlainText().mid(
-//      ui->input_text->toPlainText().length(), 1);
-//  int len = 1;
-//  if (new_label == '+' || new_label == '-' || new_label == '*' ||
-//      new_label == '/' || new_label == '^')
-//    sign = false;
-
-//  for (int i = 3; i < 6; i++) {
-//    new_label = ui->input_text->toPlainText().mid(
-//        ui->input_text->toPlainText().length() - i, i);
-//    if (new_label == "ln(")
-//      len = 3;
-//    else if (new_label == "cos(" || new_label == "sin(" ||
-//        new_label == "tan(" || new_label == "log(")
-//      len = 4;
-//    else if (new_label == "acos(" || new_label == "asin(" ||
-//        new_label == "atan(" || new_label == " mod " ||
-//        new_label == "sqrt(")
-//      len = 5;
-//  }
-
-//  new_label = ui->input_text->toPlainText().mid(
-//      ui->input_text->toPlainText().length() - 1, 1);
-//  if (new_label >= '0' && new_label <= '9')
-//    butt_end = NUMBER;
-//  else if (new_label == '+' || new_label == '-' || new_label == '*' ||
-//      new_label == '/' || new_label == '^' || new_label == ' ')
-//    butt_end = SIGN, sign = true;
-//  else if (new_label == '.')
-//    butt_end = DOT;
-//  else if (new_label == '(') {
-//    new_label = ui->input_text->toPlainText().mid(
-//        ui->input_text->toPlainText().length() - 2, 1);
-//    if (new_label >= 'a' && new_label <= 'z')
-//      butt_end = OPR;
-//    else
-//      butt_end = BOP;
-//  } else if (new_label == ')')
-//    butt_end = BCL;
-//  else if (new_label == 'x')
-//    butt_end = BTX;
-
-//  new_label = ui->input_text->toPlainText().remove(
-//      ui->input_text->toPlainText().length() - len, len);
-//  if (new_label == "") new_label = "0", butt_end = END;
-//  ui->input_text->setPlainText(new_label);
-//}
-
 void MainWindow::on_input_text_textChanged() {
   if (ui->input_text->toPlainText().length() > 255) on_pushButton_C_clicked();
   if (!ui->input_text->toPlainText().contains('x')) {
@@ -236,7 +187,7 @@ void MainWindow::on_input_text_textChanged() {
     ui->label_SetX->setEnabled(false);
     ui->doubleSpinBox_SetX->setEnabled(false);
     if (ui->checkBox_graf->isChecked()) {
-//      on_checkBox_graf_clicked(0);
+      on_checkBox_graf_clicked(0);
       ui->checkBox_graf->setChecked(0);
     }
   } else {
@@ -248,32 +199,32 @@ void MainWindow::on_input_text_textChanged() {
   }
 }
 
-//void MainWindow::on_checkBox_graf_clicked(bool checked) {
-//  if (checked) {
-//    ui->label_SetX->setEnabled(false);
-//    ui->doubleSpinBox_SetX->setEnabled(false);
-//    ui->label_x->setEnabled(true);
-//    ui->doubleSpinBox_domain_min->setEnabled(true);
-//    ui->doubleSpinBox_domain_max->setEnabled(true);
-//    ui->label_y->setEnabled(true);
-//    ui->doubleSpinBox_range_min->setEnabled(true);
-//    ui->doubleSpinBox_range_max->setEnabled(true);
-//  } else {
-//    if (!ui->input_text->toPlainText().contains('x')) {
-//      ui->label_SetX->setEnabled(false);
-//      ui->doubleSpinBox_SetX->setEnabled(false);
-//    } else {
-//      ui->label_SetX->setEnabled(true);
-//      ui->doubleSpinBox_SetX->setEnabled(true);
-//    }
-//    ui->label_x->setEnabled(false);
-//    ui->doubleSpinBox_domain_min->setEnabled(false);
-//    ui->doubleSpinBox_domain_max->setEnabled(false);
-//    ui->label_y->setEnabled(false);
-//    ui->doubleSpinBox_range_min->setEnabled(false);
-//    ui->doubleSpinBox_range_max->setEnabled(false);
-//  }
-//}
+void MainWindow::on_checkBox_graf_clicked(bool checked) {
+  if (checked) {
+    ui->label_SetX->setEnabled(false);
+    ui->doubleSpinBox_SetX->setEnabled(false);
+    ui->label_domain->setEnabled(true);
+    ui->doubleSpinBox_domain_min->setEnabled(true);
+    ui->doubleSpinBox_domain_max->setEnabled(true);
+    ui->label_range->setEnabled(true);
+    ui->doubleSpinBox_range_min->setEnabled(true);
+    ui->doubleSpinBox_range_max->setEnabled(true);
+  } else {
+    if (!ui->input_text->toPlainText().contains('x')) {
+      ui->label_SetX->setEnabled(false);
+      ui->doubleSpinBox_SetX->setEnabled(false);
+    } else {
+      ui->label_SetX->setEnabled(true);
+      ui->doubleSpinBox_SetX->setEnabled(true);
+    }
+    ui->label_domain->setEnabled(false);
+    ui->doubleSpinBox_domain_min->setEnabled(false);
+    ui->doubleSpinBox_domain_max->setEnabled(false);
+    ui->label_range->setEnabled(false);
+    ui->doubleSpinBox_range_min->setEnabled(false);
+    ui->doubleSpinBox_range_max->setEnabled(false);
+  }
+}
 
 void MainWindow::Window_Pos() {
   QScreen *screen = QGuiApplication::primaryScreen();
@@ -295,8 +246,6 @@ void MainWindow::keyPressEvent(QKeyEvent *event) {
   QString str = event->text();
   if (key >= Qt::Key_0 && key <= Qt::Key_9) {
     this->findChild<QPushButton *>("Button_" + str)->click();
-//  } else if (key == Qt::Key_Backspace) {
-//    ui->pushButton_del->click();
   } else if (key == Qt::Key_Delete) {
     ui->pushButton_C->click();
   } else if (key == Qt::Key_Plus) {

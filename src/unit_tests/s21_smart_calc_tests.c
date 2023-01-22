@@ -3,7 +3,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#include "../SmartCalc/polish.h"
+#include "../polish.h"
 
 #define MAX_SIZE_STACK 500
 #define ESP 1e-7
@@ -16,7 +16,7 @@ START_TEST(test_sin) {
   strcpy(input, "-sin(-2-3*1.55)");
   convert_to_polish_record(input, output);
   double end = calculate_value(output, x, &error);
-  double b = - 2 - 3 * 1.55;
+  double b = -2 - 3 * 1.55;
   double a = -sin(b);
   ck_assert_ldouble_eq_tol(end, a, ESP);
 }
@@ -172,7 +172,7 @@ START_TEST(test_div_on_zero) {
   strcpy(input, "2/0");
   convert_to_polish_record(input, output);
   double res = calculate_value(output, x, &error);
-  ck_assert_double_eq(res, 1.0/0.0);
+  ck_assert_double_eq(res, 1.0 / 0.0);
 }
 END_TEST
 

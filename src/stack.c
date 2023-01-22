@@ -1,6 +1,8 @@
 #include "stack.h"
-#include "polish.h"
+
 #include <stdlib.h>
+
+#include "polish.h"
 
 struct stack *init_stack(char op) {
   struct stack *first;

@@ -8,10 +8,10 @@ extern "C" {
 #endif
 #include <string.h>
 
-#define SOF -1 // стек переполнен
-#define SUF -2 // недостаточно операндов в стеке
-#define UNK -3 // неверное значение
-#define ENAN -4
+#define SOF -1   // стек переполнен
+#define SUF -2   // недостаточно операндов в стеке
+#define UNK -3   // неверное значение
+#define NCLB -4  // нет закр скобки
 #define EINF -5
 
 int get_priority(char *op);
@@ -26,4 +26,4 @@ double calculate_value(char *polish_record, double x, int *error);
 }
 #endif
 
-#endif // SRC_POLISH_H_
+#endif  // SRC_POLISH_H_

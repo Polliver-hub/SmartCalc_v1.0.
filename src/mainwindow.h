@@ -6,7 +6,7 @@
 #include <QMainWindow>
 #include <QScreen>
 
-//#include "graph.h"
+#include "graph.h"
 #include "polish.h"
 
 #define END 0
@@ -34,7 +34,7 @@ class MainWindow : public QMainWindow {
 
  private:
   Ui::MainWindow *ui;
-//  graph *graph_form;
+  graph *graph_form;
   double arg;
 
  private slots:
@@ -48,7 +48,7 @@ class MainWindow : public QMainWindow {
 
   void on_doubleSpinBox_SetX_valueChanged(double arg1);
   void on_input_text_textChanged();
-//  void on_checkBox_graf_clicked(bool checked);
+  void on_checkBox_graf_clicked(bool checked);
   void Window_Pos();
 
   QString first_num(QString butt);

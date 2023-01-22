@@ -12,4 +12,4 @@ struct stack *push(struct stack *elem, char op);
 struct stack *pop(struct stack *elem);
 void destroy_stack(struct stack *root);
 
-#endif // SRC_STACK_H_
+#endif  // SRC_STACK_H_
