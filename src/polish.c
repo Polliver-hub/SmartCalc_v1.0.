@@ -265,6 +265,8 @@ double calculate_value(char *polish_record, double x, int *error) {
             nums = push(nums, 'd');
             nums->value = sqrt(a);
             break;
+          default:
+            break;
         }
       }
       lexeme = strtok(NULL, " ");

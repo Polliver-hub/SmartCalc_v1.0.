@@ -1,3 +1,9 @@
+/*!
+\file
+\brief Заголовочный файл с объявлениями функций связанных с компиляцией выржания
+из инфискной в постфиксную нотацию
+*/
+
 #ifndef SRC_POLISH_H_
 #define SRC_POLISH_H_
 #define STACK_MAX_SIZE 300
@@ -8,18 +14,46 @@ extern "C" {
 #endif
 #include <string.h>
 
-#define SOF -1   // стек переполнен
 #define SUF -2   // недостаточно операндов в стеке
-#define UNK -3   // неверное значение
 #define NCLB -4  // нет закр скобки
-#define EINF -5
 
-int get_priority(char *op);
+/**
+ * @brief Преобразование выражений из инфиксной в обратную польскую нотацию
+ * @param infix_record - входная строка.
+ * @param polish_record - строка в обратной натации.
+ */
 void convert_to_polish_record(char *infix_record, char *polish_record);
+
+/**
+ * @brief Функция определения оператора.
+ * @param c - входящий символ.
+ * @result 1 - символ является оператором, 0 - символ не является оператором.
+ */
 int is_operator(char c);
-void split_to_lexeme(char *infix_record, char **lexeme);
+
+/**
+ * @brief Функция преобразования лексемы в односимвольный вид.
+ * @param lexeme - указатель на лексему в стэке
+ * @result возвращает символ.
+ */
 char get_op_name(char *lexeme);
+
+/**
+ * @brief Функция установки приоритета для операторов
+ * @param op - оператор
+ * @result возвращает целое число.
+ */
 int get_op_priority(char op);
+
+/**
+ * @brief Функция подсчета значения
+ * @param polish_record - указатель на строку в обратном виде(после работы
+ * convert_to_polish_record)
+ * @param error - указатель на целое число, в которое будет записан код ошибки,
+ * если она произойдет.
+ * @param x - значение Х(аргумент).
+ * @result возвращает результат подсчета в виде типа данных - дабл.
+ */
 double calculate_value(char *polish_record, double x, int *error);
 
 #ifdef __cplusplus
