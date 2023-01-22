@@ -23,7 +23,7 @@ objects_lib:
 	mv *.o object_files
 	mv *.gcno object_files
 
-install:
+install: clean
 	@mkdir build
 	@cd build/ && qmake ../SmartCalc.pro && make
 	@open build/SmartCalc.app
