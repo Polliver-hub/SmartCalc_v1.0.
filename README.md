@@ -1,8 +1,5 @@
 # SmartCalc v1.0
 
-> При старте работы над проектом просим вас постараться хронометрировать время работы над проектом.
-> По завершении работы над проектом просим вас ответить на два вопроса [в этом опросе](https://forms.gle/MAxcabZjBPmTmhPv5)
-
 Implementation of SmartCalc v1.0.
 
 The russian version of the task can be found in the repository.
@@ -223,21 +220,3 @@ The SmartCalc v1.0 program must be implemented:
       | Computes square root | sqrt(x) |
       | Computes natural logarithm | ln(x) |
       | Computes common logarithm | log(x) |
-
-
-## Part 2. Bonus. Credit calculator
-
-Provide a special mode "credit calculator" (you can take banki.ru and calcus.ru as an example):
-- Input: total credit amount, term, interest rate, type (annuity, differentiated)
-- Output: monthly payment, overpayment on credit, total payment
-
-
-## Part 3. Bonus. Deposit calculator
-
-Provide a special mode "deposit profitability calculator" (you can take banki.ru and calcus.ru as an example):
-- Input: deposit amount, deposit term, interest rate, tax rate, periodicity of payments, capitalization of interest, replenishments list, partial withdrawals list
-- Output: accrued interest, tax amount, deposit amount by the end of the term
-
-
-
-💡 [Tap here](https://forms.yandex.ru/u/6357d9a773cee730f2ba7e9d/) **to leave your feedback on the project**. Pedago Team really tries to make your educational experience better.
